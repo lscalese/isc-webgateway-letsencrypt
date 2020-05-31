@@ -1,0 +1,29 @@
+version: '3.6'
+services:
+  ssl-webgateway:
+    image: <host>:<port>/ssl-webgateway:latest
+    container_name: ssl-webgateway
+    ports: 
+      - "80:80"
+      - "443:443"
+    environment:
+      - ISC_DATA_DIRECTORY=/durable/webgateway
+      - APACHE_SERVER_ADMIN=webmaster@example.com
+      - APACHE_SERVER_NAME=example.com
+      - APACHE_SERVER_ALIAS=www.example.com
+      - LETSENCRYPT_WEBROOT=/var/www/example
+      - "LETSENCRYPT_DOMAIN=-d example.com -d www.example.com"
+      - "LETSENCRYPT_ARGS=--test-cert"
+    volumes:
+      - "webgateway:/durable"
+      - "letsencrypt:/etc/letsencrypt/live"
+    command: ["sh /certbot-setup.sh"]
+  iris:
+    image: intersystemsdc/iris-community:2020.2.0.196.0-zpm
+volumes:
+  webgateway:
+    external: true
+    name: "webgateway"
+  letsencrypt:
+    external: true
+    name: "letsencrypt"
