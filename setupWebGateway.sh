@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Add your csp application here
+
 \printf '<Location /csp>\n   CSP On \n   SetHandler csp-handler-sa\n</Location>\n' >> /etc/apache2/mods-enabled/CSP.conf
 \printf '<Location /api>\n   CSP On \n   SetHandler csp-handler-sa\n</Location>\n' >> /etc/apache2/mods-enabled/CSP.conf
 \printf '<Location /isc>\n   CSP On \n   SetHandler csp-handler-sa\n</Location>\n' >> /etc/apache2/mods-enabled/CSP.conf

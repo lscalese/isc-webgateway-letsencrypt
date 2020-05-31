@@ -1,4 +1,4 @@
-# Samples webgateway with letsencrypt
+# Sample webgateway with letsencrypt
 
 This is a sample for run docker webgateway using https protocol with:  
 
@@ -47,7 +47,7 @@ On your server.
 ## Create volumes
 
 It needs two volumes.  One for webgateway configuration files and another for letsecnrypt certificate.  
-It's important to keep your certifacte outside the container.  
+It's important to keep your certificate outside the container.  
 Do not generate a new certificate for each run otherwise You will reach the rate limit quickly.  
 [See this documentation for more informations](https://letsencrypt.org/docs/rate-limits/).  
 
@@ -79,7 +79,7 @@ services:
       - "LETSENCRYPT_ARGS=--test-cert"
     volumes:
       - "webgateway:/durable"
-      - "letsencrypt:/etc/letsencrypt/live"
+      - "letsencrypt:/etc/letsencrypt"
     command: ["sh /certbot-setup.sh"]
   iris:
     image: intersystemsdc/iris-community:2020.2.0.196.0-zpm
@@ -117,7 +117,31 @@ https://www.ssllabs.com/ssltest/analyze.html?d=www.example.com
 
 If everything is fine, you should open the management portal with `https://www.example.com/csp/sys/utilhome.csp`.
 
+
+If you have an error page
+```
+Web Gateway Version 2020.1.0.215.0
+Server Availability Error
+
+Server is currently unavailable 
+```
+
+Try to reset the password for CSPsystem to SYS  
+Open a terminal session in your webgateway container and edit CSP.ini file:  
+
+```
+docker exec -it ssl-webgateway bash
+vim /durable/webgateway/webgateway/CSP.ini
+```
+
+Set the line password with value `SYS`  
+```
+Password=SYS
+```
+Save and retry.  
+
 ## Links
 
 [Certbot](https://certbot.eff.org/)  
-[letsencrypt](https://letsencrypt.org/)
+[letsencrypt](https://letsencrypt.org/)  
+[Apache documentation](https://httpd.apache.org/docs/current/)

@@ -16,7 +16,7 @@ services:
       - "LETSENCRYPT_ARGS=--test-cert"
     volumes:
       - "webgateway:/durable"
-      - "letsencrypt:/etc/letsencrypt/live"
+      - "letsencrypt:/etc/letsencrypt"
     command: ["sh /certbot-setup.sh"]
   iris:
     image: intersystemsdc/iris-community:2020.2.0.196.0-zpm
