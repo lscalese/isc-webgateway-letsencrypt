@@ -67,8 +67,8 @@ services:
     image: ssl-webgateway:latest
     container_name: ssl-webgateway
     ports: 
-      - "8080:80"
-      - "4443:443"
+      - "80:80"
+      - "443:443"
     environment:
       - ISC_DATA_DIRECTORY=/durable/webgateway
       - IRIS_USER=CSPsystem
