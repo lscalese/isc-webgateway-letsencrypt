@@ -1,3 +1,5 @@
+#!/bin/bash
+
 mkdir -p $LETSENCRYPT_WEBROOT
 
 CONF_FILE=/etc/apache2/sites-enabled/000-default.conf

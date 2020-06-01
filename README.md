@@ -71,12 +71,17 @@ services:
       - "443:443"
     environment:
       - ISC_DATA_DIRECTORY=/durable/webgateway
+      - IRIS_USER=CSPsystem
+      - IRIS_PASSWORD=SYS
+      - IRIS_HOST=iris
+      - IRIS_PORT=51773
+      - IRIS_WEBAPPS=/irisapp1 /irisapp2 /irisapp3
       - APACHE_SERVER_ADMIN=webmaster@example.com
       - APACHE_SERVER_NAME=example.com
       - APACHE_SERVER_ALIAS=www.example.com
       - LETSENCRYPT_WEBROOT=/var/www/example
-      - "LETSENCRYPT_DOMAIN=-d example.com -d www.example.com"
-      - "LETSENCRYPT_ARGS=--test-cert"
+      - LETSENCRYPT_DOMAIN=-d example.com -d www.example.com
+      - LETSENCRYPT_ARGS=--test-cert
     volumes:
       - "webgateway:/durable"
       - "letsencrypt:/etc/letsencrypt"
@@ -96,6 +101,24 @@ The line  `LETSENCRYPT_ARGS=--test-cert` allow to get a certificate from a letse
 It's very useful to avoid [reach the rate limit](https://letsencrypt.org/docs/rate-limits/) due too many try.  
 When you are ready, simply edit this line with this value `LETSENCRYPT_ARGS=`.  
 Using a certificate from a letsencrypt test server cause a browser security alert.  
+
+
+| Variables | Description | Example Value | 
+|:--|:--|--:|
+| ISC_DATA_DIRECTORY | webgateway durable location for config files | ``/durable/webgateway`` |
+| IRIS_USER | Iris user for connect webgateway to iris (default is CSPsstem) | ``CSPsystem`` |
+| IRIS_PASSWORD | password related to IRIS_USER | ``SYS`` |
+| IRIS_HOST | Hostname or IP address of your Iris Instance | ``iris`` |
+| IRIS_PORT | Iris instance port | ``51773`` |
+| IRIS_WEBAPPS | By default web app name starting by /csp, /api, /isc, /swagger-ui are routed to iris. You can specify additional web apps if needed | ``/irisapp1 /irisapp2`` |
+| APACHE_SERVER_ADMIN | email admin, used for setup /etc/apache2/site-enabled/000-default.conf | ``webmaster@example.com`` |
+| APACHE_SERVER_NAME | Shoud be set your domain name | ``example.com`` |
+| APACHE_SERVER_ALIAS | Alias for your server | ``www.example.com`` |
+| LETSENCRYPT_WEBROOT | Letsencrypt webroot-path (usually /var/www/<domain name>) | ``/var/www/example`` |
+| LETSENCRYPT_DOMAIN | Domain coverage for letsencrypt certificate | ``-d example.com -d www.example.com`` |
+| LETSENCRYPT_ARGS | Additional argument provided to the certbot command line.  ``--test-cert`` for using a letsencrypt test server and\or ``--expand`` for expand an existing certifiate with additional domain names.   | ``--test-cert --expand`` |
+
+If you want manage your CSP.INI and CSP.CONF yourself do not specify value for the following variables : IRIS_USER, IRIS_PASSWORD, IRIS_HOST, IRIS_PORT, IRIS_WEBAPPS.  
 
 ## Run the containers
 
@@ -143,5 +166,6 @@ Save and retry.
 ## Links
 
 [Certbot](https://certbot.eff.org/)  
+[Certbot command line documentation](https://certbot.eff.org/docs/using.html#apache)  
 [letsencrypt](https://letsencrypt.org/)  
 [Apache documentation](https://httpd.apache.org/docs/current/)
