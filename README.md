@@ -64,11 +64,11 @@ Adapt the following example with your domain name and e-mail.
 version: '3.6'
 services:
   ssl-webgateway:
-    image: <host>:<port>/ssl-webgateway:latest
+    image: ssl-webgateway:latest
     container_name: ssl-webgateway
     ports: 
-      - "80:80"
-      - "443:443"
+      - "8080:80"
+      - "4443:443"
     environment:
       - ISC_DATA_DIRECTORY=/durable/webgateway
       - IRIS_USER=CSPsystem
@@ -85,7 +85,7 @@ services:
     volumes:
       - "webgateway:/durable"
       - "letsencrypt:/etc/letsencrypt"
-    command: ["sh /certbot-setup.sh"]
+    command: ["sh /startUpScript.sh"]
   iris:
     image: intersystemsdc/iris-community:2020.2.0.196.0-zpm
 volumes:
