@@ -1,6 +1,5 @@
 ARG IMAGEWEBGTW=containers.intersystems.com/intersystems/webgateway:2023.1.0.235.1
 FROM ${IMAGEWEBGTW}
-RUN /configHttpd.sh
 ADD setupWebGateway.sh /
 ADD certbot-setup.sh /
 ADD startUpScript.sh /
