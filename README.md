@@ -18,12 +18,15 @@ Download webgateway image on WRC and load image on your docker instance :
 docker load -i <webgateway image file>
 ```
 
-The current webgateway image is intersystems/webgateway:2020.1.0.215.0  
+The current webgateway image is containers.intersystems.com/intersystems/webgateway:2023.1.0.235.1  
 Adapt the Dockerfile first line with the correct webgateway image if needed. 
 
 ```
-ARG IMAGEWEBGTW=intersystems/webgateway:2020.1.0.215.0
+ARG IMAGEWEBGTW=containers.intersystems.com/intersystems/webgateway:2023.1.0.235.1
 ```
+
+**Note**: To pull an image from containers.intersystems.com you need to be logged in (wrc account is required).  
+Visit [SO.UI.User.ApplicationTokens.cls](https://login.intersystems.com/login/SSO.UI.User.ApplicationTokens.cls) to show the command.  
 
 
 ```

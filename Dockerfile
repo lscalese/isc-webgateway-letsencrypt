@@ -1,4 +1,4 @@
-ARG IMAGEWEBGTW=intersystems/webgateway:2020.3.0.221.0
+ARG IMAGEWEBGTW=containers.intersystems.com/intersystems/webgateway:2023.1.0.235.1
 FROM ${IMAGEWEBGTW}
 RUN /configHttpd.sh
 ADD setupWebGateway.sh /
